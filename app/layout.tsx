@@ -31,7 +31,7 @@ export default function RootLayout({
       suppressHydrationWarning
       className={cn("h-full", "antialiased", jetbrainsMono.variable)}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="h-dvh flex flex-col">
         <Providers>{children}</Providers>
       </body>
     </html>
