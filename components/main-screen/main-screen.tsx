@@ -1,3 +1,5 @@
+import HomeFile from "../files-content/home";
+import FileTabs from "./file-tabs";
 import { Files } from "./files";
 import { LeftDeck } from "./left-deck";
 
@@ -10,7 +12,10 @@ export default function MainScreen() {
       </div>
 
       <div className="w-full h-full">
-        <p>Right</p>
+        <FileTabs />
+        <div>
+          <HomeFile />
+        </div>
       </div>
     </div>
   );
