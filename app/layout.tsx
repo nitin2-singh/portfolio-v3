@@ -8,6 +8,11 @@ export const metadata: Metadata = {
   title: "Nitin Singh Negi | Portfolio",
   description:
     "Nitin Singh Negi's personal portfolio showcasing projects, skills, and experience in software development.",
+  icons: {
+    icon: "https://code.visualstudio.com/assets/branding/code-stable.png",
+    shortcut: "https://code.visualstudio.com/assets/branding/code-stable.png",
+    apple: "https://code.visualstudio.com/assets/branding/code-stable.png",
+  },
 };
 
 const jetbrainsMono = JetBrains_Mono({
