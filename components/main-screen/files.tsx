@@ -54,7 +54,7 @@ export function Files() {
     },
   ];
   return (
-    <div className="bg-gray-400 w-full flex flex-col justify-between">
+    <div className="bg-gray-400 w-full h-full flex flex-col justify-between">
       <div>
         <p className="text-xs p-2 px-3">PORTFOLIO</p>
         {files.map((file) => (
