@@ -1,20 +1,13 @@
 "use client";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import {
-  ArrowUp,
-  FolderIcon,
-  Menu,
-  Plus,
-  Search,
-  Settings,
-  X,
-} from "lucide-react";
+import { ArrowUp, FolderIcon, Menu, Plus, Search, X } from "lucide-react";
 import { Button } from "../ui/button";
 import { useModalStore } from "@/store/search-bar-store.store";
 import Image from "next/image";
 import { PiGitMergeLight } from "react-icons/pi";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
+import { SettingPopup } from "../settings/setting-popup";
 
 export function ProjectListSheet() {
   const files = [
@@ -85,7 +78,7 @@ export function ProjectListSheet() {
             <div className="p-3 flex bg-stone-400">
               <p>EXPLORER</p>
               <div className="flex items-center ms-auto gap-3">
-                <Settings size={16} />
+                <SettingPopup />
                 <X onClick={() => setOpen(false)} size={16} />
               </div>
             </div>

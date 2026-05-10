@@ -1,5 +1,6 @@
-import { Folder, Search, FileDown, Settings } from "lucide-react";
+import { Folder, Search, FileDown } from "lucide-react";
 import { PiGitMergeLight } from "react-icons/pi";
+import { SettingPopup } from "../settings/setting-popup";
 
 interface LeftDeckProps {
   onFolderClick: () => void;
@@ -30,9 +31,7 @@ export function LeftDeck({ onFolderClick }: LeftDeckProps) {
           </div>
         ))}
       </div>
-      <div className="opacity-50 hover:opacity-100 cursor-pointer">
-        <Settings size={20} />
-      </div>
+      <SettingPopup />
     </div>
   );
 }
