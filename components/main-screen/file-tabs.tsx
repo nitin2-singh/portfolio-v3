@@ -16,7 +16,7 @@ export default function FileTabs() {
     },
   ];
   return (
-    <div>
+    <div className="max-md:hidden">
       <div className="flex w-full items-center gap-2 border-b border-gray-300 bg-gray-100">
         <div className="flex items-center">
           {files.map((file) => (

@@ -118,7 +118,7 @@ export default function ActionBar() {
   ];
 
   return (
-    <div className="border-b px-2 flex items-center pt-0.5">
+    <div className="border-b px-2 flex items-center pt-0.5 max-md:hidden">
       {actions.map((action) => (
         <DropdownMenu key={action.id}>
           <DropdownMenuTrigger asChild>

@@ -35,13 +35,13 @@ export default function Footer() {
         </Button>
         <Button
           variant="ghost"
-          className="text-xs h-fit rounded-sm hover:bg-stone-600 w-fit px-1 py-0.5"
+          className="text-xs h-fit rounded-sm hover:bg-stone-600 w-fit px-1 py-0.5 max-sm:hidden"
         >
           ⎇ main
         </Button>
         <Button
           variant="ghost"
-          className="text-xs h-fit rounded-sm hover:bg-stone-600 w-fit px-1 py-0.5"
+          className="text-xs h-fit rounded-sm hover:bg-stone-600 w-fit px-1 py-0.5 max-md:hidden"
         >
           <RefreshCcw size={10} className="size-2.5" /> nitin&apos;s porfolio
         </Button>
@@ -49,7 +49,7 @@ export default function Footer() {
       <div className="flex items-center gap-3">
         <Button
           variant="ghost"
-          className="text-xs h-fit rounded-sm hover:bg-stone-600 w-fit px-1 py-0.5"
+          className="text-xs h-fit rounded-sm hover:bg-stone-600 w-fit px-1 py-0.5 max-sm:hidden"
         >
           Typescript React
         </Button>

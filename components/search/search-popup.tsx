@@ -124,7 +124,7 @@ export default function SearchPopup() {
     <Dialog open={openSearchBar} onOpenChange={setOpenSearchBar}>
       <DialogContent
         showCloseButton={false}
-        className="rounded-sm p-0 min-w-137.5"
+        className="rounded-sm p-0 sm:min-w-137.5"
       >
         <div>
           <div
@@ -139,7 +139,7 @@ export default function SearchPopup() {
               className="w-full outline-none border-none ring-0! p-0"
               onChange={handleInputChange}
             />
-            <KbdGroup>
+            <KbdGroup className="max-md:hidden">
               <Kbd>Esc</Kbd>
             </KbdGroup>
           </div>

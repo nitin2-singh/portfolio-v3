@@ -53,6 +53,7 @@ export function Files() {
       isFile: true,
     },
   ];
+
   return (
     <div className="bg-gray-400 w-full h-full flex flex-col justify-between">
       <div>

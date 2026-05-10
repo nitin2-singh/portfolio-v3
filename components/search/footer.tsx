@@ -2,28 +2,34 @@ import { ArrowUpDown, CircleX, CornerDownLeft } from "lucide-react";
 
 export default function SearchFooter() {
   return (
-    <div className="flex text-stone-400 items-center px-4 py-2 text-[10px]! bg-stone-700 rounded-b-sm">
-      <div className="flex items-center gap-1">
-        <ArrowUpDown size={10} />
-        <p>Navigate</p>
+    <div className="flex flex-wrap items-center gap-y-2 px-3 py-2 text-[10px] text-stone-400 bg-stone-700 rounded-b-sm">
+      {/* left actions */}
+      <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+        <div className="flex items-center gap-1 whitespace-nowrap">
+          <ArrowUpDown size={10} />
+          <p>Navigate</p>
+        </div>
+
+        <span className="hidden sm:block size-0.5 rounded-full bg-stone-400" />
+
+        <div className="flex items-center gap-1 whitespace-nowrap">
+          <CornerDownLeft size={10} />
+          <p>Open</p>
+        </div>
+
+        <span className="hidden sm:block size-0.5 rounded-full bg-stone-400" />
+
+        <div className="flex items-center gap-1 whitespace-nowrap">
+          <CircleX size={10} />
+          <p>Esc</p>
+        </div>
       </div>
 
-      <span className="size-0.5 rounded-full bg-stone-400 mx-4" />
-
-      <div className="flex items-center gap-1">
-        <CornerDownLeft size={10} />
-        <p>open</p>
-      </div>
-
-      <span className="size-0.5 rounded-full bg-stone-400 mx-4" />
-
-      <div className="flex items-center gap-1">
-        <CircleX size={10} />
-        <p>Esc</p>
-      </div>
-
-      <div className="ml-auto">
-        <p>Tip: type &quot;file name&quot; to open file</p>
+      {/* tip */}
+      <div className="w-full sm:w-auto sm:ml-auto">
+        <p className="truncate text-[9px] sm:text-[10px] text-stone-500 sm:text-stone-400">
+          Tip: type &quot;file name&quot; to open file
+        </p>
       </div>
     </div>
   );

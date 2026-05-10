@@ -11,7 +11,7 @@ export default function MainScreen() {
 
   return (
     <div className="flex w-full h-full flex-1 overflow-hidden">
-      <div className="flex h-full shrink-0">
+      <div className="flex h-full shrink-0 max-lg:hidden">
         <LeftDeck onFolderClick={() => setSidebarOpen((o) => !o)} />
 
         {/* animated files panel */}
