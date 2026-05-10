@@ -75,7 +75,7 @@ export function ProjectListSheet() {
   };
 
   return (
-    <div className="md:hidden h-6 flex items-center justify-between w-full">
+    <div className="lg:hidden h-6 flex items-center justify-between w-full">
       <div className="flex items-center gap-3">
         <Sheet open={open} onOpenChange={(open) => setOpen(open)}>
           <SheetTrigger>
