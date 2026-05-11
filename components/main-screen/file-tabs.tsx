@@ -17,12 +17,12 @@ export default function FileTabs() {
   ];
   return (
     <div className="max-md:hidden">
-      <div className="flex w-full items-center gap-2 border-b border-gray-300 bg-gray-100">
+      <div className="flex w-full items-center gap-2 border-b border-border bg-brand-mainscreenfiles">
         <div className="flex items-center">
           {files.map((file) => (
             <div
               key={file.id}
-              className="font-medium text-gray-700 flex items-center gap-2 text-[11px] border-r border-r-gray-300 border-t-2 border-yellow-400 px-3 py-1"
+              className="font-medium flex items-center gap-2 text-[11px] border-r border-r-border border-t-2 border-brand-primary px-3 py-1 bg-brand-mainscreenaccent"
             >
               <Image
                 width={16}
@@ -32,17 +32,14 @@ export default function FileTabs() {
                 className="w-4 h-4"
               />
               {file.name}
-              <Button
-                variant="ghost"
-                className="hover:bg-gray-200 p-1! h-fit rounded-sm"
-              >
+              <Button variant="ghost" className="p-1! h-fit rounded-sm">
                 <X size={6} className="size-2.5" />
               </Button>
             </div>
           ))}
         </div>
       </div>
-      <p className="flex text-[11px] items-center gap-1 border-b border-gray-300 px-3 py-1 text-gray-500">
+      <p className="flex text-[11px] items-center gap-1 border-b border-border px-3 py-1 bg-brand-mainscreenaccent">
         nitin <ChevronRight size={10} /> src <ChevronRight size={10} /> home.tsx
       </p>
     </div>

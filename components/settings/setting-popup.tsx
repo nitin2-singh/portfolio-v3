@@ -8,10 +8,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { AiFillThunderbolt } from "react-icons/ai";
 import { Kbd, KbdGroup } from "../ui/kbd";
+import { useTheme } from "next-themes";
 
 const themes = [
   {
@@ -107,7 +107,9 @@ const keyboardShortcuts = [
 ];
 
 export function SettingPopup() {
-  const [selectedTheme, setSelectedTheme] = useState("aahana-dark");
+  const { theme, setTheme } = useTheme();
+
+  const selectedTheme = themes.find((t) => t.value === theme) ?? themes[0];
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -115,7 +117,7 @@ export function SettingPopup() {
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="start"
-        className="w-fit max-h-[70vh] px-0 rounded-xs"
+        className="w-fit max-h-[70vh] px-0 rounded-xs bg-popover"
       >
         <DropdownMenuLabel className="px-3 py-1 text-xs">
           SETTINGS
@@ -126,15 +128,16 @@ export function SettingPopup() {
           🎨 COLOR THEME
         </DropdownMenuLabel>
         {themes.map((theme) => {
-          const isSelected = selectedTheme === theme.value;
+          const isSelected = selectedTheme.value === theme.value;
 
           return (
             <DropdownMenuItem
               key={theme.value}
-              onClick={() => setSelectedTheme(theme.value)}
+              onClick={() => setTheme(theme.value)}
               className={cn(
                 "flex items-center justify-between rounded-none px-3 py-2 text-xs cursor-pointer border-l-2 border-transparent",
-                isSelected && "border-blue-500 bg-gray-100",
+                isSelected && "border-brand-primary bg-brand-accent",
+                "hover:bg-brand-accent!",
               )}
             >
               <div className="flex items-center gap-3">
@@ -160,7 +163,7 @@ export function SettingPopup() {
         {quickActions.map((action) => (
           <DropdownMenuItem
             key={action.id}
-            className="flex items-center justify-between rounded-none px-3 py-2 text-xs cursor-pointer border-l-2 border-transparent"
+            className="flex items-center justify-between rounded-none px-3 py-2 text-xs cursor-pointer border-l-2 border-transparent hover:bg-brand-accent!"
           >
             <div className="flex items-center gap-3 w-full">
               <span>{action.icon}</span>
@@ -178,7 +181,7 @@ export function SettingPopup() {
         {keyboardShortcuts.map((shortcut) => (
           <DropdownMenuItem
             key={shortcut.id}
-            className="flex items-center gap-2 rounded-none px-3 py-2 text-xs cursor-pointer border-l-2 border-transparent"
+            className="flex items-center gap-2 rounded-none px-3 py-2 text-xs cursor-pointer border-l-2 border-transparent hover:bg-brand-accent!"
           >
             <KbdGroup>
               <Kbd>{shortcut.command}</Kbd>

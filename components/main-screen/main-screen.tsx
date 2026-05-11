@@ -16,10 +16,10 @@ export default function MainScreen() {
 
         {/* animated files panel */}
         <div
-          className="h-full overflow-hidden transition-all duration-300 ease-in-out border-r border-green-200"
-          style={{ width: sidebarOpen ? "180px" : "0px" }}
+          className="h-full overflow-hidden transition-all duration-300 ease-in-out border-r border-stone-700"
+          style={{ width: sidebarOpen ? "220px" : "0px" }}
         >
-          <div className="w-45 h-full">
+          <div className="w-55 h-full">
             <Files />
           </div>
         </div>

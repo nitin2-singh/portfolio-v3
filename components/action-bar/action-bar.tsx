@@ -8,6 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "../ui/button";
+
 export default function ActionBar() {
   const actions = [
     {
@@ -118,13 +119,13 @@ export default function ActionBar() {
   ];
 
   return (
-    <div className="border-b px-2 flex items-center pt-0.5 max-md:hidden">
+    <div className="border-b px-2 flex items-center pt-0.5 max-md:hidden bg-brand-actionbar h-6">
       {actions.map((action) => (
         <DropdownMenu key={action.id}>
           <DropdownMenuTrigger asChild>
             <Button
               variant="ghost"
-              className="ring-0! text-[10px] rounded-sm py-1 px-2 h-fit border-none"
+              className="ring-0! text-[11px] rounded-sm py-1 px-2 h-fit border-none"
             >
               {action.name}
             </Button>
@@ -137,7 +138,7 @@ export default function ActionBar() {
                     {option.name}
                   </DropdownMenuLabel>
                 ) : (
-                  <DropdownMenuItem className="rounded-none space-x-5 gap-20 text-xs px-3 py-2">
+                  <DropdownMenuItem className="rounded-none space-x-5 gap-20 text-xs px-3 py-2 hover:bg-brand-primary!">
                     {option.name}{" "}
                     {option.shortcut && (
                       <span className="ml-auto text-[10px] opacity-60">
@@ -150,7 +151,7 @@ export default function ActionBar() {
                   option.suboptions.map((suboption) => (
                     <DropdownMenuItem
                       key={suboption.id}
-                      className="rounded-none space-x-5 gap-20 text-xs px-3 py-2"
+                      className="rounded-none space-x-5 gap-20 text-xs px-3 py-2 hover:bg-brand-primary!"
                     >
                       {suboption.name}
                     </DropdownMenuItem>

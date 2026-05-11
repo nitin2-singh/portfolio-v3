@@ -25,23 +25,23 @@ export default function Footer() {
     return () => clearInterval(interval);
   }, []);
   return (
-    <div className="bg-stone-400 rounded-t-xs px-4 py-0.5 flex justify-between">
+    <div className="bg-brand-primary rounded-t-xs px-4 py-0.5 flex justify-between h-6">
       <div className="flex items-center gap-3">
         <Button
           variant="ghost"
-          className="text-xs h-fit rounded-sm hover:bg-stone-600 w-fit px-1 py-0.5"
+          className="text-xs h-fit rounded-sm hover:bg-stone-100/20 w-fit px-1 py-0.5"
         >
           <TriangleAlert size={10} className="size-2.5" />0
         </Button>
         <Button
           variant="ghost"
-          className="text-xs h-fit rounded-sm hover:bg-stone-600 w-fit px-1 py-0.5 max-sm:hidden"
+          className="text-xs h-fit rounded-sm hover:bg-stone-100/20 w-fit px-1 py-0.5 max-sm:hidden"
         >
           ⎇ main
         </Button>
         <Button
           variant="ghost"
-          className="text-xs h-fit rounded-sm hover:bg-stone-600 w-fit px-1 py-0.5 max-md:hidden"
+          className="text-xs h-fit rounded-sm hover:bg-stone-100/20 w-fit px-1 py-0.5 max-md:hidden"
         >
           <RefreshCcw size={10} className="size-2.5" /> nitin&apos;s porfolio
         </Button>
@@ -49,14 +49,14 @@ export default function Footer() {
       <div className="flex items-center gap-3">
         <Button
           variant="ghost"
-          className="text-xs h-fit rounded-sm hover:bg-stone-600 w-fit px-1 py-0.5 max-sm:hidden"
+          className="text-xs h-fit rounded-sm hover:bg-stone-100/20 w-fit px-1 py-0.5 max-sm:hidden"
         >
           Typescript React
         </Button>
         <ThemeDropdown />
         <Button
           variant="ghost"
-          className="text-xs h-fit rounded-sm hover:bg-stone-600 w-fit px-1 py-0.5"
+          className="text-xs h-fit rounded-sm hover:bg-stone-100/20 w-fit px-1 py-0.5"
         >
           {time}
         </Button>

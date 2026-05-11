@@ -15,7 +15,7 @@ export function LeftDeck({ onFolderClick }: LeftDeckProps) {
   ];
 
   return (
-    <div className="h-full flex flex-col justify-between items-center p-3 shrink-0">
+    <div className="h-full flex flex-col justify-between items-center p-3 shrink-0 bg-brand-leftdeck">
       <div className="flex flex-col gap-6">
         {options.map((option) => (
           <div

@@ -4,7 +4,7 @@ import { ProjectListSheet } from "./project-list-sheet";
 
 export function TopBar() {
   return (
-    <div className="flex items-center px-4 border-b py-1.5 w-full">
+    <div className="flex items-center px-4 border-b py-1 w-full bg-brand-topbar">
       <Controls />
       <div className="w-full flex justify-center max-lg:hidden">
         <SearchBar />

@@ -86,14 +86,14 @@ export default function Home() {
   return (
     <main className="h-full bg-[#111213] text-zinc-200">
       {/* grid bg */}
-      <div
+      {/* <div
         className="fixed inset-0 pointer-events-none"
         style={{
           backgroundImage:
             "linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px)",
           backgroundSize: "60px 60px",
         }}
-      />
+      /> */}
 
       <div className="relative w-full h-full mx-auto px-4 pt-10 pb-12 sm:px-6 sm:pt-14 sm:pb-16 overflow-auto max-h-[calc(100vh-153.5px)]">
         {/* greeting */}

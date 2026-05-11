@@ -10,12 +10,12 @@ export function SearchBar() {
     <Button
       onClick={() => setOpenSearchBar(true)}
       variant="outline"
-      className="px-8 rounded-sm text-xs"
+      className="px-8 rounded-sm text-[10px] h-fit bg-brand-searchbar hover:bg-brand-searchbar/20"
     >
-      <SearchIcon /> nitin-singh : portfolio{" "}
-      <KbdGroup className="text-xs mx-1">
-        <Kbd>Ctrl</Kbd>
-        <Kbd>P</Kbd>
+      <SearchIcon height={10} width={10} /> nitin-singh : portfolio{" "}
+      <KbdGroup className="text-[10px] mx-1">
+        <Kbd className="text-[10px] ">Ctrl</Kbd>
+        <Kbd className="text-[10px] ">P</Kbd>
       </KbdGroup>
     </Button>
   );

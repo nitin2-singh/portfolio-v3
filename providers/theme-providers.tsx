@@ -7,9 +7,16 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   return (
     <NextThemesProvider
       attribute="class"
-      defaultTheme="dark"
-      enableSystem
-      disableTransitionOnChange
+      defaultTheme="aahana-dark"
+      disableTransitionOnChange={false}
+      themes={[
+        "aahana-dark",
+        "rose-pine",
+        "tokyo-night",
+        "catppuccin",
+        "nord",
+        "gruvbox",
+      ]}
     >
       {children}
     </NextThemesProvider>

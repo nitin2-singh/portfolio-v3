@@ -55,13 +55,13 @@ export function Files() {
   ];
 
   return (
-    <div className="bg-gray-400 w-full h-full flex flex-col justify-between">
+    <div className="bg-brand-filesdeck w-full h-full flex flex-col justify-between">
       <div>
-        <p className="text-xs p-2 px-3">PORTFOLIO</p>
+        <p className="text-[11px] p-2 px-5">PORTFOLIO</p>
         {files.map((file) => (
           <div
             key={file.id}
-            className="flex  items-center gap-2 px-3 py-1.5 hover:bg-gray-500 border-l-2 hover:border-blue-500 border-transparent cursor-pointer text-xs"
+            className="flex  items-center gap-2 px-5 py-1.5 hover:bg-brand-accent border-l-2 hover:border-brand-primary border-transparent cursor-pointer text-xs"
           >
             <Image width={16} height={16} src={file.logo} alt={file.name} />
             <p className="mx-auto">{file.name}</p>

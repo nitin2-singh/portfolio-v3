@@ -10,7 +10,7 @@ export function Controls() {
         <button
           className="
           group
-          flex h-3.5 w-3.5 items-center justify-center
+          flex h-3 w-3 items-center justify-center
           rounded-full
           bg-[#ff5f57]
         "
@@ -31,7 +31,7 @@ export function Controls() {
         <button
           className="
           group
-          flex h-3.5 w-3.5 items-center justify-center
+          flex h-3 w-3 items-center justify-center
           rounded-full
           bg-[#febc2e]
         "
@@ -52,7 +52,7 @@ export function Controls() {
         <button
           className="
           group
-          flex h-3.5 w-3.5 items-center justify-center
+          flex h-3 w-3 items-center justify-center
           rounded-full
           bg-[#28c840]
         "

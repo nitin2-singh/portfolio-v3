@@ -164,8 +164,9 @@ export default function SearchPopup() {
                 className={cn(
                   "flex items-center gap-2 px-4 py-2 border-l-2 border-transparent cursor-pointer",
                   !isKeyboardNavigation &&
-                    "hover:bg-stone-400 hover:border-blue-500",
-                  index === selectedIndex && "bg-stone-400 border-blue-500",
+                    "hover:bg-brand-accent hover:border-brand-primary",
+                  index === selectedIndex &&
+                    "bg-brand-accent border-brand-primary",
                 )}
               >
                 <Image

@@ -8,11 +8,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+
 import { Check, Palette } from "lucide-react";
 import { BsFillCaretDownFill, BsFillCaretUpFill } from "react-icons/bs";
-import { useState } from "react";
+
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
+
+import { useState } from "react";
+import { useTheme } from "next-themes";
 
 const themes = [
   {
@@ -55,21 +59,26 @@ const themes = [
 
 export function ThemeDropdown() {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedTheme, setSelectedTheme] = useState("aahana-dark");
+
+  const { theme, setTheme } = useTheme();
+
+  const selectedTheme = themes.find((t) => t.value === theme) ?? themes[0];
 
   return (
     <DropdownMenu open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          className="gap-2 rounded-sm text-xs py-0.5 h-fit"
+          className="h-fit gap-2 rounded-sm py-0.5 text-xs hover:bg-stone-100/20! data-[state=open]:bg-stone-100/30"
         >
           <Palette className="size-3.5" />
-          {selectedTheme}
+
+          {selectedTheme.label}
+
           {isOpen ? (
-            <BsFillCaretUpFill className="size-3.5 transition-all ease-in-out" />
+            <BsFillCaretUpFill className="size-3.5 transition-all" />
           ) : (
-            <BsFillCaretDownFill className="size-3.5 transition-all ease-in-out" />
+            <BsFillCaretDownFill className="size-3.5 transition-all" />
           )}
         </Button>
       </DropdownMenuTrigger>
@@ -78,28 +87,34 @@ export function ThemeDropdown() {
         <DropdownMenuLabel className="px-3 py-2 text-xs">
           COLOR THEME
         </DropdownMenuLabel>
+
         <DropdownMenuSeparator />
-        {themes.map((theme) => {
-          const isSelected = selectedTheme === theme.value;
+
+        {themes.map((themeItem) => {
+          const isSelected = theme === themeItem.value;
 
           return (
             <DropdownMenuItem
-              key={theme.value}
-              onClick={() => setSelectedTheme(theme.value)}
+              key={themeItem.value}
+              onClick={() => setTheme(themeItem.value)}
               className={cn(
-                "flex items-center justify-between rounded-none px-3 py-2 text-xs cursor-pointer",
+                "flex cursor-pointer items-center justify-between rounded-none px-3 py-2 text-xs",
+                "hover:bg-brand-accent",
               )}
             >
               <div className="flex items-center gap-3">
                 <div
                   className="size-4 rounded-full"
                   style={{
-                    backgroundColor: theme.color,
-                    boxShadow: `0 0 0 2px ${theme.color}25`,
+                    backgroundColor: themeItem.color,
+
+                    boxShadow: `0 0 0 2px ${themeItem.color}25`,
                   }}
                 />
-                <span>{theme.icon}</span>
-                <span>{theme.label}</span>
+
+                <span>{themeItem.icon}</span>
+
+                <span>{themeItem.label}</span>
               </div>
 
               {isSelected && <Check className="size-3.5" />}
