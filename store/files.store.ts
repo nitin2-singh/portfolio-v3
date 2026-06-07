@@ -21,6 +21,7 @@ type FileStoreState = {
 
   onClick: (file: File) => void;
   closeTab: (fileId: number) => void;
+  closeAllTabs: () => void;
 };
 
 export const useFileStore = create<FileStoreState>()((set, get) => ({
@@ -88,5 +89,9 @@ export const useFileStore = create<FileStoreState>()((set, get) => ({
       activeTabs: newTabs,
       activeFile: nextActive,
     });
+  },
+
+  closeAllTabs: () => {
+    set({ activeTabs: [HOME_FILE], activeFile: HOME_FILE });
   },
 }));

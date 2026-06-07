@@ -5,7 +5,6 @@ import HomeFile from "../files-content/home";
 import FileTabs from "./file-tabs";
 import { Files } from "./files";
 import { LeftDeck } from "./left-deck";
-import { useState } from "react";
 import AboutSection from "../files-content/about-html";
 import ProjectsSection from "../files-content/project-js";
 import SkillsSection from "../files-content/skills-json";
@@ -14,21 +13,22 @@ import ContactPage from "../files-content/contact-css";
 import ReadmePage from "../files-content/readme";
 import { Terminal } from "./terminal";
 import { useTerminalStore } from "@/store/terminal.store";
+import { useLeftDeckStore } from "@/store/left-deck.store";
 
 export default function MainScreen() {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const { setOpenDeck, openDeck } = useLeftDeckStore();
   const { activeFile } = useFileStore();
   const { openTerminal } = useTerminalStore();
 
   return (
     <div className="flex w-full h-full flex-1 overflow-hidden">
       <div className="flex h-full shrink-0 max-lg:hidden">
-        <LeftDeck onFolderClick={() => setSidebarOpen((o) => !o)} />
+        <LeftDeck onFolderClick={() => setOpenDeck(!openDeck)} />
 
         {/* animated files panel */}
         <div
           className="h-full overflow-hidden transition-all duration-300 ease-in-out border-r border-stone-700"
-          style={{ width: sidebarOpen ? "220px" : "0px" }}
+          style={{ width: openDeck ? "220px" : "0px" }}
         >
           <div className="w-55 h-full">
             <Files />

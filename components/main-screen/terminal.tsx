@@ -332,6 +332,13 @@ export function Terminal({ className }: TerminalProps) {
     inputRef.current?.focus();
   }, []);
 
+  // listen for dispatch event
+  useEffect(() => {
+    const handler = () => setLines([]);
+    window.addEventListener("terminal-clear", handler);
+    return () => window.removeEventListener("terminal-clear", handler);
+  }, []);
+
   const TABS: Tab[] = ["TERMINAL", "PROBLEMS", "OUTPUT"];
 
   return (
