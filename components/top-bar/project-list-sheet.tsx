@@ -35,7 +35,7 @@ export function ProjectListSheet() {
               <p>EXPLORER</p>
               <div className="flex items-center ms-auto gap-3">
                 <SettingPopup />
-                <X onClick={() => setOpen(false)} size={14} />
+                <X onClick={() => setOpen(false)} size={18} className="mb-1" />
               </div>
             </div>
             <div className="h-full flex flex-col justify-between">
