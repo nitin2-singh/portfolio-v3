@@ -234,12 +234,12 @@ export default function AboutSection() {
             }}
             className="border-[0.5px] border-brand-accent bg-brand-card-bg rounded-md p-5"
           >
-            <div className="flex justify-between items-start mb-1">
-              <p className="font-syne text-[15px] font-extrabold text-[#e6edf3] flex items-center gap-2">
+            <div className="flex justify-between items-start gap-4 mb-1">
+              <p className="font-syne text-[15px] font-extrabold text-[#e6edf3] flex items-center gap-2 min-w-0">
                 🎓 {ed.school}
               </p>
 
-              <p className="font-jetbrains text-sm whitespace-nowrap ml-4">
+              <p className="font-jetbrains text-xs sm:text-sm whitespace-normal sm:whitespace-nowrap shrink-0">
                 {ed.years}
               </p>
             </div>

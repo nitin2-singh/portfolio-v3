@@ -197,7 +197,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         </motion.div>
 
         {/* Category */}
-        <div className="flex items-center justify-between gap-2">
+        <div className="flex items-center justify-between gap-2 max-sm:flex-col max-sm:items-start">
           <p className="font-jetbrains text-[10px] tracking-[0.2em] text-[#888] font-bold">
             {project.category}
           </p>

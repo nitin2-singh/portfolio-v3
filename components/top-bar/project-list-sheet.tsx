@@ -9,9 +9,11 @@ import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { SettingPopup } from "../settings/setting-popup";
 import { FILES } from "../common/files";
+import { useFileStore } from "@/store/files.store";
 
 export function ProjectListSheet() {
   const [open, setOpen] = useState(false);
+  const { activeFile, onClick } = useFileStore();
   const setOpenSearchBar = useModalStore((s) => s.setOpenSearchBar);
   const handleSearchClick = () => {
     setOpenSearchBar(true);
@@ -45,6 +47,10 @@ export function ProjectListSheet() {
                 {FILES.map((file) => (
                   <div
                     key={file.id}
+                    onClick={() => {
+                      onClick(file);
+                      setOpen(false);
+                    }}
                     className={cn(
                       "flex items-center gap-2 px-3 ps-7 py-2.5  border-transparent cursor-pointer text-xs",
                       "hover:bg-brand-accent border-l-2 hover:border-brand-primary",
@@ -57,7 +63,9 @@ export function ProjectListSheet() {
                       alt={file.name}
                     />
                     <p className="">{file.name}</p>
-                    {/* <span className="size-1.5 rounded-full bg-green-500 ms-auto me-4" /> */}
+                    {activeFile.id === file.id && (
+                      <span className="size-1.5 rounded-full bg-green-500 ms-auto me-4" />
+                    )}
                   </div>
                 ))}
               </div>
@@ -81,9 +89,9 @@ export function ProjectListSheet() {
           </SheetContent>
         </Sheet>
 
-        <p className="text-xs text-muted-foreground">~/home.tsx</p>
+        <p className="text-xs text-muted-foreground">~/{activeFile?.name}</p>
       </div>
-      <div>
+      <div className="flex justify-end w-full">
         <Button
           variant="secondary"
           onClick={handleSearchClick}

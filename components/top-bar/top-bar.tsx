@@ -52,7 +52,7 @@ export function TopBar() {
       </div>
 
       {/* Right */}
-      <div className="ml-auto">
+      <div className="max-lg:w-full">
         <ProjectListSheet />
       </div>
     </div>

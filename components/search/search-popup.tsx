@@ -19,6 +19,13 @@ export default function SearchPopup() {
   const { onClick } = useFileStore();
   const [isKeyboardNavigation, setIsKeyboardNavigation] = useState(false);
 
+  const resetSearch = () => {
+    setSearchTerm("");
+    setFilteredFiles(FILES);
+    setSelectedIndex(-1);
+    setIsKeyboardNavigation(false);
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchTerm(value);
@@ -32,7 +39,11 @@ export default function SearchPopup() {
 
   const handleFileClick = (file: (typeof FILES)[number]) => {
     setOpenSearchBar(false);
-    onClick(file);
+    if (file.isFile) {
+      window.open("./resume.pdf", "_blank");
+    } else {
+      onClick(file);
+    }
   };
 
   useEffect(() => {
@@ -69,7 +80,6 @@ export default function SearchPopup() {
 
       if (e.key === "Escape") {
         setOpenSearchBar(false);
-        setSelectedIndex(-1);
       }
     };
 
@@ -81,10 +91,19 @@ export default function SearchPopup() {
   }, [filteredFiles, selectedIndex, openSearchBar, setOpenSearchBar, onClick]);
 
   return (
-    <Dialog open={openSearchBar} onOpenChange={setOpenSearchBar}>
+    <Dialog
+      open={openSearchBar}
+      onOpenChange={(open) => {
+        if (!open) {
+          resetSearch();
+        }
+
+        setOpenSearchBar(open);
+      }}
+    >
       <DialogContent
         showCloseButton={false}
-        className="rounded-sm p-0 sm:min-w-137.5"
+        className="rounded-sm p-0 sm:min-w-137.5 max-sm:max-w-[90%]"
       >
         <div>
           <div
@@ -95,6 +114,7 @@ export default function SearchPopup() {
           >
             <FaChevronRight size={10} />
             <Input
+              value={searchTerm}
               placeholder="Go to file or run command..."
               className="w-full outline-none border-none ring-0! p-0"
               onChange={handleInputChange}
@@ -138,7 +158,7 @@ export default function SearchPopup() {
                   className="w-4 h-4"
                 />
                 <p className="text-xs">{file.name}</p>
-                <p className="text-stone-500 text-xs ml-auto">
+                <p className="text-stone-500 text-xs ml-auto max-md:hidden">
                   {file.location}
                 </p>
               </div>
