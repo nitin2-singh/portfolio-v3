@@ -30,12 +30,12 @@ export const useFileStore = create<FileStoreState>()((set, get) => ({
     const { activeTabs } = get();
 
     // set active file
-    set({ activeFile: file });
+    if (!file.isFile) set({ activeFile: file });
 
     // prevent duplicate tabs
     const exists = activeTabs.some((tab) => tab.name === file.name);
 
-    if (!exists) {
+    if (!exists && !file.isFile) {
       set({
         activeTabs: [...activeTabs, file],
       });

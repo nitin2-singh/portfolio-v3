@@ -9,12 +9,14 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { FILES } from "../common/files";
+import { useFileStore } from "@/store/files.store";
 
 export default function SearchPopup() {
   const [filteredFiles, setFilteredFiles] = useState(FILES);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const { openSearchBar, setOpenSearchBar } = useModalStore();
+  const { onClick } = useFileStore();
   const [isKeyboardNavigation, setIsKeyboardNavigation] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,6 +28,11 @@ export default function SearchPopup() {
 
     setFilteredFiles(filtered);
     setSelectedIndex(filtered.length > 0 ? 0 : -1);
+  };
+
+  const handleFileClick = (file: (typeof FILES)[number]) => {
+    setOpenSearchBar(false);
+    onClick(file);
   };
 
   useEffect(() => {
@@ -53,8 +60,11 @@ export default function SearchPopup() {
 
         const selectedFile = filteredFiles[selectedIndex];
 
-        console.log("Open file:", selectedFile);
-        // navigate/open file here
+        setOpenSearchBar(false);
+        onClick(selectedFile);
+        setFilteredFiles(FILES);
+        setSearchTerm("");
+        setSelectedIndex(-1);
       }
 
       if (e.key === "Escape") {
@@ -68,7 +78,7 @@ export default function SearchPopup() {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [filteredFiles, selectedIndex, openSearchBar, setOpenSearchBar]);
+  }, [filteredFiles, selectedIndex, openSearchBar, setOpenSearchBar, onClick]);
 
   return (
     <Dialog open={openSearchBar} onOpenChange={setOpenSearchBar}>
@@ -111,6 +121,7 @@ export default function SearchPopup() {
               <div
                 key={file.id}
                 onMouseEnter={() => setSelectedIndex(index)}
+                onClick={() => handleFileClick(file)}
                 className={cn(
                   "flex items-center gap-2 px-4 py-2 border-l-2 border-transparent cursor-pointer",
                   !isKeyboardNavigation &&

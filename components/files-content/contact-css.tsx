@@ -1,6 +1,18 @@
+"use client";
+
 import { useState } from "react";
 import { Mail, ArrowUpRight } from "lucide-react";
 import { FaLinkedinIn, FaGithub } from "react-icons/fa";
+import { motion, Variants } from "framer-motion";
+
+const fadeInUp = (delay: number): Variants => ({
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, delay, ease: "easeOut" as const },
+  },
+});
 
 const contacts = [
   {
@@ -14,7 +26,7 @@ const contacts = [
   },
   {
     label: "LINKEDIN",
-    value: "linkedin.com/in/nitin",
+    value: "linkedin.com/in/nitin-aws-ci-cd",
     href: "https://linkedin.com/in/nitin-aws-ci-cd",
     color: "text-blue-400",
     borderColor: "border-blue-400/30",
@@ -23,7 +35,7 @@ const contacts = [
   },
   {
     label: "GITHUB",
-    value: "github.com/nitin",
+    value: "github.com/nitin2-singh",
     href: "https://github.com/nitin2-singh",
     color: "text-gray-200",
     borderColor: "border-gray-500/30",
@@ -42,14 +54,16 @@ function ContactCard({
   const [hovered, setHovered] = useState(false);
 
   return (
-    <a
+    <motion.a
       href={contact.href}
       target="_blank"
       rel="noopener noreferrer"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.6 + index * 0.1, ease: "easeOut" }}
       className={`flex items-center gap-4 px-4 py-4 rounded-lg border ${contact.borderColor} bg-[#1a1a1a] hover:bg-[#222] transition-all duration-200 group`}
-      style={{ animationDelay: `${index * 80}ms` }}
     >
       <span
         className={`flex items-center justify-center w-10 h-10 rounded-md ${contact.iconColor} transition-all duration-200`}
@@ -67,36 +81,62 @@ function ContactCard({
         </div>
       </div>
       <ArrowUpRight
-        className={`w-4 h-4 text-gray-600 group-hover:text-gray-300 transition-all duration-200 ${hovered ? "translate-x-0.5 -translate-y-0.5" : ""}`}
+        className={`w-4 h-4 text-gray-600 group-hover:text-gray-300 transition-all duration-200 ${
+          hovered ? "translate-x-0.5 -translate-y-0.5" : ""
+        }`}
       />
-    </a>
+    </motion.a>
   );
 }
 
 export default function ContactPage() {
   return (
-    <div className="p-8">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.4 }}
+      className="p-8"
+    >
       {/* Top comment */}
-      <div className="text-brand-comment text-sm tracking-wide opacity-80">
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={fadeInUp(0.1)}
+        className="text-brand-comment text-sm tracking-wide opacity-80"
+      >
         {"/* contact.css — let's build something */"}
-      </div>
+      </motion.div>
 
       {/* Title */}
-      <h1 className="text-6xl md:text-7xl font-black tracking-tight text-white my-6">
+      <motion.h1
+        initial="hidden"
+        animate="visible"
+        variants={fadeInUp(0.2)}
+        className="text-6xl md:text-7xl font-black tracking-tight text-white my-6"
+      >
         Contact
-      </h1>
+      </motion.h1>
 
       {/* Subtitle */}
-      <p className="text-gray-400 text-sm mb-14">
-        <span className="text-brand-dim  mr-2">
+      <motion.p
+        initial="hidden"
+        animate="visible"
+        variants={fadeInUp(0.3)}
+        className="text-gray-400 text-sm mb-14"
+      >
+        <span className="text-brand-dim mr-2">
           {"// open to work, collabs & good conversations"}
         </span>
-      </p>
+      </motion.p>
 
       {/* Two columns */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl">
         {/* Left: Find Me On */}
-        <div>
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={fadeInUp(0.45)}
+        >
           <h2 className="text-xl font-bold tracking-[0.3em] text-teal-400 mb-6 uppercase">
             Find&nbsp;Me&nbsp;On
           </h2>
@@ -105,8 +145,8 @@ export default function ContactPage() {
               <ContactCard key={c.label} contact={c} index={i} />
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 }

@@ -2,7 +2,7 @@ import { ArrowUpDown, CircleX, CornerDownLeft } from "lucide-react";
 
 export default function SearchFooter() {
   return (
-    <div className="flex flex-wrap items-center gap-y-2 px-3 py-2 text-[10px] text-stone-400 bg-stone-700 rounded-b-sm">
+    <div className="flex flex-wrap items-center gap-y-2 px-3 py-2 text-[10px] text-stone-400 bg-brand-mainscreenaccent rounded-b-sm">
       {/* left actions */}
       <div className="flex flex-wrap items-center gap-3 sm:gap-4">
         <div className="flex items-center gap-1 whitespace-nowrap">
