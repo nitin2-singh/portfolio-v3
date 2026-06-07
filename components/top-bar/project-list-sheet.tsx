@@ -8,59 +8,9 @@ import { PiGitMergeLight } from "react-icons/pi";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { SettingPopup } from "../settings/setting-popup";
+import { FILES } from "../common/files";
 
 export function ProjectListSheet() {
-  const files = [
-    {
-      id: 1,
-      name: "home.tsx",
-      logo: "https://dl.svgcdn.com/svg/logos/react.svg",
-      location: "src/",
-    },
-    {
-      id: 2,
-      name: "about.html",
-      logo: "https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/file_type_html.svg",
-      location: "src/",
-    },
-    {
-      id: 3,
-      name: "projects.js",
-      logo: "https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/file_type_js.svg",
-      location: "src/",
-    },
-    {
-      id: 4,
-      name: "skills.json",
-      logo: "https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/file_type_json.svg",
-      location: "src/",
-    },
-    {
-      id: 5,
-      name: "experience.ts",
-      logo: "https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/file_type_typescript.svg",
-      location: "src/",
-    },
-    {
-      id: 6,
-      name: "contact.css",
-      logo: "https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/file_type_css.svg",
-      location: "src/",
-    },
-    {
-      id: 7,
-      name: "README.md",
-      logo: "https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/file_type_markdown.svg",
-      location: "./",
-    },
-    {
-      id: 8,
-      name: "Resume.pdf",
-      logo: "https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/file_type_pdf.svg",
-      location: "./",
-      isFile: true,
-    },
-  ];
   const [open, setOpen] = useState(false);
   const setOpenSearchBar = useModalStore((s) => s.setOpenSearchBar);
   const handleSearchClick = () => {
@@ -72,14 +22,18 @@ export function ProjectListSheet() {
       <div className="flex items-center gap-3">
         <Sheet open={open} onOpenChange={(open) => setOpen(open)}>
           <SheetTrigger>
-            <Menu />
+            <Menu size={20} />
           </SheetTrigger>
-          <SheetContent showCloseButton={false} side="left" className="gap-0">
-            <div className="p-3 flex bg-stone-400">
+          <SheetContent
+            showCloseButton={false}
+            side="left"
+            className="gap-0 w-70!"
+          >
+            <div className="p-3 flex bg-brand-actionbar border-b text-xs items-center opacity-50!">
               <p>EXPLORER</p>
               <div className="flex items-center ms-auto gap-3">
                 <SettingPopup />
-                <X onClick={() => setOpen(false)} size={16} />
+                <X onClick={() => setOpen(false)} size={14} />
               </div>
             </div>
             <div className="h-full flex flex-col justify-between">
@@ -88,12 +42,12 @@ export function ProjectListSheet() {
                   <FolderIcon size={16} />
                   <p className="text-xs p-2">Nitin-Singh</p>
                 </div>
-                {files.map((file) => (
+                {FILES.map((file) => (
                   <div
                     key={file.id}
                     className={cn(
                       "flex items-center gap-2 px-3 ps-7 py-2.5  border-transparent cursor-pointer text-xs",
-                      "hover:bg-gray-500 border-l-2 hover:border-blue-500",
+                      "hover:bg-brand-accent border-l-2 hover:border-brand-primary",
                     )}
                   >
                     <Image
@@ -107,7 +61,7 @@ export function ProjectListSheet() {
                   </div>
                 ))}
               </div>
-              <div className="flex items-center justify-between px-3 py-1 border-t">
+              <div className="flex items-center justify-between px-3 border-t py-3">
                 <div className="flex items-center gap-1 text-xs">
                   <PiGitMergeLight size={12} />
                   <p>main</p>

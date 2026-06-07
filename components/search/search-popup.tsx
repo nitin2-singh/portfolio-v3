@@ -8,60 +8,10 @@ import SearchFooter from "./footer";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import { FILES } from "../common/files";
 
 export default function SearchPopup() {
-  const files = [
-    {
-      id: 1,
-      name: "home.tsx",
-      logo: "https://dl.svgcdn.com/svg/logos/react.svg",
-      location: "src/",
-    },
-    {
-      id: 2,
-      name: "about.html",
-      logo: "https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/file_type_html.svg",
-      location: "src/",
-    },
-    {
-      id: 3,
-      name: "projects.js",
-      logo: "https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/file_type_js.svg",
-      location: "src/",
-    },
-    {
-      id: 4,
-      name: "skills.json",
-      logo: "https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/file_type_json.svg",
-      location: "src/",
-    },
-    {
-      id: 5,
-      name: "experience.ts",
-      logo: "https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/file_type_typescript.svg",
-      location: "src/",
-    },
-    {
-      id: 6,
-      name: "contact.css",
-      logo: "https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/file_type_css.svg",
-      location: "src/",
-    },
-    {
-      id: 7,
-      name: "README.md",
-      logo: "https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/file_type_markdown.svg",
-      location: "./",
-    },
-    {
-      id: 8,
-      name: "Resume.pdf",
-      logo: "https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/file_type_pdf.svg",
-      location: "./",
-      isFile: true,
-    },
-  ];
-  const [filteredFiles, setFilteredFiles] = useState(files);
+  const [filteredFiles, setFilteredFiles] = useState(FILES);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const { openSearchBar, setOpenSearchBar } = useModalStore();
@@ -70,7 +20,7 @@ export default function SearchPopup() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchTerm(value);
-    const filtered = files.filter((file) =>
+    const filtered = FILES.filter((file) =>
       file.name.toLowerCase().includes(value.toLowerCase()),
     );
 
@@ -130,7 +80,7 @@ export default function SearchPopup() {
           <div
             className={cn(
               "flex items-center gap-2 border-b px-4 py-2",
-              files.length === filteredFiles.length ? "mb-3" : "mb-0",
+              FILES.length === filteredFiles.length ? "mb-3" : "mb-0",
             )}
           >
             <FaChevronRight size={10} />

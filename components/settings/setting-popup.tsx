@@ -12,45 +12,7 @@ import { cn } from "@/lib/utils";
 import { AiFillThunderbolt } from "react-icons/ai";
 import { Kbd, KbdGroup } from "../ui/kbd";
 import { useTheme } from "next-themes";
-
-const themes = [
-  {
-    label: "Aahana Dark",
-    value: "aahana-dark",
-    icon: "💜",
-    color: "#007ACC",
-  },
-  {
-    label: "Rosé Pine",
-    value: "rose-pine",
-    icon: "🌸",
-    color: "#EB6F92",
-  },
-  {
-    label: "Tokyo Night",
-    value: "tokyo-night",
-    icon: "🌃",
-    color: "#7AA2F7",
-  },
-  {
-    label: "Catppuccin",
-    value: "catppuccin",
-    icon: "🐱",
-    color: "#CBA6F7",
-  },
-  {
-    label: "Nord",
-    value: "nord",
-    icon: "🧊",
-    color: "#88C0D0",
-  },
-  {
-    label: "Gruvbox",
-    value: "gruvbox",
-    icon: "🔥",
-    color: "#FABD2F",
-  },
-];
+import { ALL_THEMES } from "../common/theme";
 
 const quickActions = [
   {
@@ -109,11 +71,12 @@ const keyboardShortcuts = [
 export function SettingPopup() {
   const { theme, setTheme } = useTheme();
 
-  const selectedTheme = themes.find((t) => t.value === theme) ?? themes[0];
+  const selectedTheme =
+    ALL_THEMES.find((t) => t.value === theme) ?? ALL_THEMES[0];
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Settings size={20} />
+        <Settings size={16} />
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="start"
@@ -127,7 +90,7 @@ export function SettingPopup() {
         <DropdownMenuLabel className="px-3 py-1 text-[11px]">
           🎨 COLOR THEME
         </DropdownMenuLabel>
-        {themes.map((theme) => {
+        {ALL_THEMES.map((theme) => {
           const isSelected = selectedTheme.value === theme.value;
 
           return (

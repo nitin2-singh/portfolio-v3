@@ -1,223 +1,326 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { Mail } from "lucide-react";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { useEffect, useState } from "react";
+import { Mail, ExternalLink } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { BsGithub, BsLinkedin } from "react-icons/bs";
+import { cn } from "@/lib/utils";
+import { motion, Variants } from "framer-motion";
 
-function useTypewriter(words: string[], speed = 75, pause = 2000) {
-  const [display, setDisplay] = useState("");
-  const [wordIdx, setWordIdx] = useState(0);
-  const [charIdx, setCharIdx] = useState(0);
-  const [deleting, setDeleting] = useState(false);
-  const ref = useRef<ReturnType<typeof setTimeout>>(undefined);
+const ROLES = ["Full Stack Engineer", "Backend Engineer", "@ Slidecoach"];
 
-  useEffect(() => {
-    const word = words[wordIdx];
-    if (!deleting) {
-      if (charIdx < word.length) {
-        ref.current = setTimeout(() => {
-          setDisplay(word.slice(0, charIdx + 1));
-          setCharIdx((c) => c + 1);
-        }, speed);
-      } else {
-        ref.current = setTimeout(() => setDeleting(true), pause);
-      }
-    } else {
-      if (charIdx > 0) {
-        ref.current = setTimeout(() => {
-          setDisplay(word.slice(0, charIdx - 1));
-          setCharIdx((c) => c - 1);
-        }, speed / 2);
-      } else {
-        ref.current = setTimeout(() => {
-          setDeleting(false);
-          setWordIdx((w) => (w + 1) % words.length);
-        }, speed);
-      }
-    }
-    return () => clearTimeout(ref.current);
-  }, [charIdx, deleting, wordIdx, words, speed, pause]);
-
-  return display;
-}
-
-const ROLES = [
-  "Full Stack Engineer",
-  "Backend Engineer",
-  "Frontend Developer",
-  "CI/CD & DevOps",
-];
-
-const PILLS = [
+const SOCIAL_LINKS = [
   {
-    label: "Full Stack Engineer",
-    color: "text-green-400 border-green-400/30 bg-green-400/5",
+    label: "GitHub",
+    href: "https://github.com/nitin2-singh",
+    icon: BsGithub,
   },
   {
-    label: "Backend Engineer",
-    color: "text-purple-400 border-purple-400/30 bg-purple-400/5",
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/nitin-singh-negi-2a5472373/",
+    icon: BsLinkedin,
   },
   {
-    label: "Frontend Dev",
-    color: "text-cyan-400 border-cyan-400/30 bg-cyan-400/5",
+    label: "Email",
+    href: "mailto:nitinforjob080803@gmail.com",
+    icon: Mail,
   },
   {
-    label: "@ SlideCoach",
-    color: "text-orange-400 border-orange-400/30 bg-orange-400/5",
+    label: "Portfolio",
+    href: "#",
+    icon: ExternalLink,
   },
 ];
 
 const STATS = [
-  { value: "2.5+", label: "YEARS" },
+  { value: "3+", label: "YEARS" },
   { value: "10+", label: "PROJECTS" },
   { value: "∞", label: "CURIOSITY" },
   { value: "↑", label: "ALWAYS LEARNING" },
 ];
 
-const SOCIAL = [
-  { label: "GitHub", href: "#", icon: FaGithub },
-  { label: "LinkedIn", href: "#", icon: FaLinkedin },
-  { label: "Email", href: "mailto:nitinforcoding@gmail.com", icon: Mail },
-];
+const ROLE_COLORS: Record<string, string> = {
+  "Full Stack Engineer": "bg-purple-400",
+  "Backend Engineer": "bg-green-500",
+  "@ Slidecoach": "bg-brand-font-accent",
+};
 
-export default function Home() {
-  const role = useTypewriter(ROLES);
+const fadeInUp = (delay: number): Variants => ({
+  hidden: {
+    opacity: 0,
+    y: 40,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.7,
+      delay,
+      ease: "easeOut",
+    },
+  },
+});
+
+function TypingEffect({ words }: { words: string[] }) {
+  const [displayed, setDisplayed] = useState("");
+  const [wordIndex, setWordIndex] = useState(0);
+  const [charIndex, setCharIndex] = useState(0);
+  const [deleting, setDeleting] = useState(false);
+
+  useEffect(() => {
+    const current = words[wordIndex];
+    let timeout: ReturnType<typeof setTimeout>;
+
+    if (!deleting && charIndex < current.length) {
+      timeout = setTimeout(() => {
+        setDisplayed(current.slice(0, charIndex + 1));
+        setCharIndex((c) => c + 1);
+      }, 80);
+    } else if (!deleting && charIndex === current.length) {
+      timeout = setTimeout(() => setDeleting(true), 1600);
+    } else if (deleting && charIndex > 0) {
+      timeout = setTimeout(() => {
+        setDisplayed(current.slice(0, charIndex - 1));
+        setCharIndex((c) => c - 1);
+      }, 45);
+    } else if (deleting && charIndex === 0) {
+      timeout = setTimeout(() => {
+        setDeleting(false);
+        setWordIndex((i) => (i + 1) % words.length);
+      }, 0);
+    }
+
+    return () => clearTimeout(timeout);
+  }, [charIndex, deleting, wordIndex, words]);
 
   return (
-    <main className="h-full bg-[#111213] text-zinc-200">
-      {/* grid bg */}
-      {/* <div
-        className="fixed inset-0 pointer-events-none"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px)",
-          backgroundSize: "60px 60px",
-        }}
-      /> */}
+    <span className="text-yellow-400 font-mono">
+      {displayed}
+      <span className="animate-pulse text-yellow-400">|</span>
+    </span>
+  );
+}
 
-      <div className="relative w-full h-full mx-auto px-4 pt-10 pb-12 sm:px-6 sm:pt-14 sm:pb-16 overflow-auto max-h-[calc(100vh-153.5px)]">
-        {/* greeting */}
-        <p className="font-mono text-[11px] text-zinc-600 mb-3 tracking-wide">
-          {"// hello world !! Welcome to my portfolio"}
-        </p>
+export default function Home() {
+  return (
+    <motion.main
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.4 }}
+      className="h-full font-mono lg:px-6 lg:py-6"
+    >
+      {/* Top Nav */}
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={fadeInUp(0.1)}
+        className="px-6 pt-4 text-brand-font-subheading"
+      >
+        {`// hello world !! Welcome to my portfolio`}
+      </motion.div>
 
-        {/* name */}
-        <h1
-          className="font-black leading-[0.88] mb-5"
-          style={{
-            fontFamily: "'Arial Black','Helvetica Neue',sans-serif",
-            fontSize: "clamp(2.6rem, 9vw, 5.5rem)",
-            letterSpacing: "-0.03em",
-          }}
+      {/* Hero Section */}
+      <motion.section
+        initial="hidden"
+        animate="visible"
+        variants={fadeInUp(0.2)}
+        className="px-6 pt-4 pb-0 max-w-4xl"
+      >
+        {/* Name */}
+        <motion.h1
+          initial="hidden"
+          animate="visible"
+          variants={fadeInUp(0.3)}
+          className="text-7xl md:text-8xl font-extrabold leading-none tracking-tight relative"
         >
-          <span className="text-[#e8e0d0]">Nitin</span>
+          <span className="text-white">NITIN</span>
           <br />
-          <span className="text-orange-500">Singh Negi</span>
-        </h1>
 
-        {/* pills */}
-        <div className="flex flex-wrap gap-1.5 mb-3">
-          {PILLS.map((p) => (
-            <span
-              key={p.label}
-              className={`inline-flex items-center gap-1.5 font-mono text-[11px] px-2.5 py-0.75 rounded-full border ${p.color}`}
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-current opacity-80 shrink-0" />
-              {p.label}
-            </span>
-          ))}
-        </div>
+          <div className="w-fit relative">
+            <span className="text-brand-font-accent">SINGH NEGI</span>
 
-        {/* typewriter */}
-        <p className="font-mono text-[11px] text-zinc-500 mb-5 h-4">
-          Building scalable systems &mdash;{" "}
-          <span className="text-orange-400">{role}</span>
-          <span className="animate-pulse text-orange-400">_</span>
-        </p>
+            <span className="absolute left-0 bottom-0 h-0.5 w-full rounded-sm bg-linear-to-r from-brand-font-accent to-transparent" />
+          </div>
+        </motion.h1>
 
-        {/* bio line 1 */}
-        <p className="text-sm text-zinc-300 leading-relaxed max-w-lg mb-2">
-          Full stack engineer with{" "}
-          <span className="text-white font-semibold">2.5+ years</span> shipping
-          production systems end-to-end —{" "}
-          <span className="text-green-400">NestJS / Node.js</span> on the
-          backend, <span className="text-cyan-400">React / Next.js</span> on the
-          frontend, and{" "}
-          <span className="text-purple-400">AWS + Docker + CI/CD</span> holding
-          it all together.
-        </p>
-
-        {/* bio line 2 */}
-        <p className="text-sm text-zinc-500 leading-relaxed max-w-lg mb-8">
-          Deep in <span className="text-zinc-400">microservices</span>,{" "}
-          <span className="text-zinc-400">BullMQ / Kafka queues</span>,{" "}
-          <span className="text-zinc-400">Redis caching</span>, and{" "}
-          <span className="text-zinc-400">PostgreSQL / MongoDB</span> data
-          layers. Currently at{" "}
-          <span className="text-orange-400">SlideCoach</span>, prev.{" "}
-          <span className="text-zinc-300">Kognics</span>. B.Tech IT — CGPA 8.1.
-        </p>
-
-        {/* CTA */}
-        <div className="flex flex-wrap gap-2 mb-8">
-          <a
-            href="/projects"
-            className="inline-flex items-center gap-1.5 px-4 py-2 bg-orange-500 hover:bg-orange-400 text-white text-xs font-semibold rounded-lg transition-colors"
-          >
-            🗂 Projects
-          </a>
-          <a
-            href="/about"
-            className="inline-flex items-center gap-1.5 px-4 py-2 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-semibold rounded-lg border border-zinc-700 transition-colors"
-          >
-            👤 About Me
-          </a>
-          <a
-            href="mailto:nitinforcoding@gmail.com"
-            className="inline-flex items-center gap-1.5 px-4 py-2 hover:bg-zinc-800 text-zinc-400 text-xs font-semibold rounded-lg border border-zinc-700 transition-colors"
-          >
-            ✉ Contact
-          </a>
-        </div>
-
-        {/* stats */}
-        <div className="grid grid-cols-4 bg-zinc-900/60 border border-zinc-800 rounded-xl overflow-hidden mb-7">
-          {STATS.map(({ value, label }, i) => (
-            <div
-              key={label}
-              className={`flex flex-col items-center justify-center py-3 ${
-                i !== STATS.length - 1 ? "border-r border-zinc-800" : ""
-              }`}
+        {/* Role Badges */}
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={fadeInUp(0.45)}
+          className="flex flex-wrap gap-2 mt-5"
+        >
+          {ROLES.map((role, index) => (
+            <motion.span
+              key={role}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.5,
+                delay: 0.5 + index * 0.1,
+              }}
+              className={cn(
+                "flex items-center gap-1.5 border border-[#3a3a3a] rounded-xs px-3 py-1 text-xs bg-[#2a2a2a] text-[#d4d4d4]",
+                role.includes("Slidecoach") &&
+                  "border-brand-font-accent text-brand-font-accent",
+              )}
             >
               <span
-                className="text-lg font-black text-zinc-100 leading-none mb-0.5"
-                style={{ fontFamily: "'Arial Black',sans-serif" }}
-              >
-                {value}
-              </span>
-              <span className="font-mono text-[8px] sm:text-[9px] text-zinc-600 tracking-widest text-center px-1">
-                {label}
-              </span>
-            </div>
-          ))}
-        </div>
+                className={cn(
+                  `w-2 h-2 rounded-full ${ROLE_COLORS[role] ?? "bg-gray-400"}`,
+                )}
+              />
 
-        {/* social */}
-        <div className="flex flex-wrap gap-1.5">
-          {SOCIAL.map(({ label, href, icon: Icon }) => (
-            <a
-              key={label}
-              href={href}
-              target={href.startsWith("mailto") ? undefined : "_blank"}
-              rel="noreferrer"
-              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-600 rounded-lg text-zinc-400 hover:text-zinc-200 font-mono text-[11px] transition-all"
-            >
-              <Icon size={12} />
-              {label}
-            </a>
+              {role}
+            </motion.span>
           ))}
-        </div>
-      </div>
-    </main>
+        </motion.div>
+
+        {/* Typing Tagline */}
+        <motion.p
+          initial="hidden"
+          animate="visible"
+          variants={fadeInUp(0.7)}
+          className="mt-5 text-xs text-brand-dim"
+        >
+          Exploring{" "}
+          <TypingEffect
+            words={[
+              "Full Stack Development 🔥",
+              "Microservices",
+              "Event-Driven Systems",
+              "Cloud & DevOps",
+            ]}
+          />
+        </motion.p>
+
+        {/* Description */}
+        <motion.p
+          initial="hidden"
+          animate="visible"
+          variants={fadeInUp(0.9)}
+          className="mt-5 text-sm leading-relaxed max-w-xl text-brand-dim"
+        >
+          Full Stack Engineer with{" "}
+          <span className="font-semibold text-brand-font-highlight">
+            2.5+ years
+          </span>{" "}
+          of experience building scalable, production-grade systems using{" "}
+          <span className="font-semibold text-brand-font-highlight">
+            Node.js, NestJS, TypeScript, Redis, PostgreSQL
+          </span>
+          , and{" "}
+          <span className="font-semibold text-brand-font-highlight">AWS</span>.
+          Strong experience in{" "}
+          <span className="font-semibold text-brand-font-highlight">
+            microservices, async processing, queues, caching
+          </span>
+          , and cloud infrastructure.
+        </motion.p>
+
+        {/* CTA Buttons */}
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={fadeInUp(1.1)}
+          className="flex flex-wrap gap-3 mt-6"
+        >
+          <Button
+            className="font-mono text-sm font-semibold gap-2 rounded-xs text-white p-5 bg-brand-primary hover:bg-brand-primary/80!"
+            asChild
+          >
+            <a href="#projects">📁 Projects</a>
+          </Button>
+
+          <Button
+            variant="outline"
+            className="font-mono text-sm gap-2 rounded-xs p-5"
+            style={{
+              borderColor: "#3a3a3a",
+              backgroundColor: "transparent",
+              color: "#d4d4d4",
+            }}
+            asChild
+          >
+            <a href="#about">👤 About Me</a>
+          </Button>
+
+          <Button
+            variant="outline"
+            className="font-mono text-sm gap-2 rounded-xs p-5"
+            style={{
+              borderColor: "#3a3a3a",
+              backgroundColor: "transparent",
+              color: "#d4d4d4",
+            }}
+            asChild
+          >
+            <a href="mailto:nitinforcoding@gmail.com">✉ Contact</a>
+          </Button>
+        </motion.div>
+      </motion.section>
+
+      {/* Stats */}
+      <motion.section
+        initial="hidden"
+        animate="visible"
+        variants={fadeInUp(1.3)}
+        className="mx-6 mt-10 rounded-sm grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-[#3a3a3a]"
+        style={{
+          backgroundColor: "#252526",
+          border: "1px solid #3a3a3a",
+        }}
+      >
+        {STATS.map(({ value, label }, index) => (
+          <motion.div
+            key={label}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.5,
+              delay: 1.4 + index * 0.15,
+            }}
+            className="flex flex-col items-center justify-center py-6 gap-1"
+          >
+            <span className="text-2xl font-extrabold">{value}</span>
+
+            <span className="text-xs tracking-widest text-brand-dim">
+              {label}
+            </span>
+          </motion.div>
+        ))}
+      </motion.section>
+
+      {/* Social Links */}
+      <motion.section
+        initial="hidden"
+        animate="visible"
+        variants={fadeInUp(1.7)}
+        className="px-6 mt-6 flex flex-wrap gap-2 pb-10"
+      >
+        {SOCIAL_LINKS.map(({ label, href, icon: Icon }, index) => (
+          <motion.a
+            key={label}
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.5,
+              delay: 1.8 + index * 0.1,
+            }}
+            className="flex items-center gap-2 px-3 py-1.5 rounded text-xs transition-colors hover:bg-[#2d2d2d] text-brand-dim"
+            style={{
+              border: "1px solid #3a3a3a",
+              textDecoration: "none",
+            }}
+          >
+            <Icon size={14} />
+            {label}
+          </motion.a>
+        ))}
+      </motion.section>
+    </motion.main>
   );
 }

@@ -1,70 +1,41 @@
-import { ArrowUp, Plus } from "lucide-react";
+"use client";
+import { ArrowDown, ArrowUp, Plus } from "lucide-react";
 import Image from "next/image";
 import { PiGitMergeLight } from "react-icons/pi";
-export function Files() {
-  const files = [
-    {
-      id: 1,
-      name: "home.tsx",
-      logo: "https://dl.svgcdn.com/svg/logos/react.svg",
-      location: "src/",
-    },
-    {
-      id: 2,
-      name: "about.html",
-      logo: "https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/file_type_html.svg",
-      location: "src/",
-    },
-    {
-      id: 3,
-      name: "projects.js",
-      logo: "https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/file_type_js.svg",
-      location: "src/",
-    },
-    {
-      id: 4,
-      name: "skills.json",
-      logo: "https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/file_type_json.svg",
-      location: "src/",
-    },
-    {
-      id: 5,
-      name: "experience.ts",
-      logo: "https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/file_type_typescript.svg",
-      location: "src/",
-    },
-    {
-      id: 6,
-      name: "contact.css",
-      logo: "https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/file_type_css.svg",
-      location: "src/",
-    },
-    {
-      id: 7,
-      name: "README.md",
-      logo: "https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/file_type_markdown.svg",
-      location: "./",
-    },
-    {
-      id: 8,
-      name: "Resume.pdf",
-      logo: "https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/file_type_pdf.svg",
-      location: "./",
-      isFile: true,
-    },
-  ];
+import { FILES } from "../common/files";
+import { useFileStore } from "@/store/files.store";
+import { cn } from "@/lib/utils";
 
+export function Files() {
+  const { activeFile, onClick } = useFileStore();
   return (
     <div className="bg-brand-filesdeck w-full h-full flex flex-col justify-between">
       <div>
         <p className="text-[11px] p-2 px-5">PORTFOLIO</p>
-        {files.map((file) => (
+        {FILES.map((file) => (
           <div
+            onClick={() => {
+              onClick(file);
+              if (file.isFile) {
+                window.open(file.location, "_blank");
+              }
+            }}
             key={file.id}
-            className="flex  items-center gap-2 px-5 py-1.5 hover:bg-brand-accent border-l-2 hover:border-brand-primary border-transparent cursor-pointer text-xs"
+            className={cn(
+              "group flex  items-center gap-2 px-5 py-1.5 hover:bg-brand-accent border-l-2 hover:border-brand-primary border-transparent cursor-pointer text-xs",
+              activeFile.id !== file.id && "text-brand-dim",
+              activeFile.id === file.id &&
+                "bg-brand-accent border-brand-primary",
+            )}
           >
             <Image width={16} height={16} src={file.logo} alt={file.name} />
-            <p className="mx-auto">{file.name}</p>
+            <p className="mx-auto truncate">{file.name}</p>
+            {file.isFile && (
+              <ArrowDown
+                size={14}
+                className="opacity-0 group-hover:opacity-100 transition-opacity text-brand-dim"
+              />
+            )}
           </div>
         ))}
       </div>
