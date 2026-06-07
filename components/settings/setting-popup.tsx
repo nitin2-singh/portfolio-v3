@@ -13,32 +13,8 @@ import { AiFillThunderbolt } from "react-icons/ai";
 import { Kbd, KbdGroup } from "../ui/kbd";
 import { useTheme } from "next-themes";
 import { ALL_THEMES } from "../common/theme";
-
-const quickActions = [
-  {
-    id: 1,
-    label: "Command Palette",
-    command: "Ctrl+P",
-    icon: "🔎",
-  },
-  {
-    id: 2,
-    label: "Toggle Terminal",
-    command: "Ctrl+`",
-    icon: "📟",
-  },
-  {
-    id: 3,
-    label: "Toggle FullScreen",
-    command: "F11",
-    icon: "💻",
-  },
-  {
-    id: 4,
-    label: "Download Resume",
-    icon: "📄",
-  },
-];
+import { useModalStore } from "@/store/search-bar-store.store";
+import { useTerminalStore } from "@/store/terminal.store";
 
 const keyboardShortcuts = [
   {
@@ -70,13 +46,61 @@ const keyboardShortcuts = [
 
 export function SettingPopup() {
   const { theme, setTheme } = useTheme();
+  const { setOpenSearchBar } = useModalStore();
+  const { setOpenTerminal, openTerminal } = useTerminalStore();
 
   const selectedTheme =
     ALL_THEMES.find((t) => t.value === theme) ?? ALL_THEMES[0];
+
+  const quickActions = [
+    {
+      id: 1,
+      label: "Command Palette",
+      command: "Ctrl+P",
+      action: () => {
+        setOpenSearchBar(true);
+      },
+      icon: "🔎",
+    },
+    {
+      id: 2,
+      label: "Toggle Terminal",
+      command: "Ctrl+`",
+      action: () => {
+        setOpenTerminal(!openTerminal);
+      },
+      icon: "📟",
+    },
+    {
+      id: 3,
+      label: "Toggle FullScreen",
+      command: "Ctrl+F",
+      action: () => {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen();
+        } else {
+          document.exitFullscreen();
+        }
+      },
+      icon: "💻",
+    },
+    {
+      id: 4,
+      label: "Download Resume",
+      action: () => {
+        window.open("/resume.pdf", "_blank");
+      },
+      icon: "📄",
+    },
+  ];
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Settings size={16} />
+        <Settings
+          size={20}
+          className="mb-1 text-brand-dim hover:text-white transition-colors"
+        />
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="start"
@@ -128,7 +152,14 @@ export function SettingPopup() {
             key={action.id}
             className="flex items-center justify-between rounded-none px-3 py-2 text-xs cursor-pointer border-l-2 border-transparent hover:bg-brand-accent!"
           >
-            <div className="flex items-center gap-3 w-full">
+            <div
+              onClick={() => {
+                if (action?.action) {
+                  action.action();
+                }
+              }}
+              className="flex items-center gap-3 w-full"
+            >
               <span>{action.icon}</span>
               <span>{action.label}</span>
               <span className="ml-auto text-[10px] text-stone-500">

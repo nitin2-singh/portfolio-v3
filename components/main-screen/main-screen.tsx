@@ -12,10 +12,14 @@ import SkillsSection from "../files-content/skills-json";
 import ExperienceSection from "../files-content/experience-ts";
 import ContactPage from "../files-content/contact-css";
 import ReadmePage from "../files-content/readme";
+import { Terminal } from "./terminal";
+import { useTerminalStore } from "@/store/terminal.store";
 
 export default function MainScreen() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const { activeFile } = useFileStore();
+  const { openTerminal } = useTerminalStore();
+
   return (
     <div className="flex w-full h-full flex-1 overflow-hidden">
       <div className="flex h-full shrink-0 max-lg:hidden">
@@ -43,6 +47,7 @@ export default function MainScreen() {
           {activeFile.id === 6 && <ContactPage />}
           {activeFile.id === 7 && <ReadmePage />}
         </div>
+        {openTerminal && <Terminal />}
       </div>
     </div>
   );

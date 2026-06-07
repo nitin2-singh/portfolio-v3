@@ -6,7 +6,7 @@ import { useFileStore } from "@/store/files.store";
 import { cn } from "@/lib/utils";
 
 export default function FileTabs() {
-  const { activeFile, activeTabs } = useFileStore();
+  const { activeFile, activeTabs, closeTab, onClick } = useFileStore();
 
   return (
     <div className="max-md:hidden">
@@ -15,6 +15,11 @@ export default function FileTabs() {
           {activeTabs.map((file) => (
             <div
               key={file.id}
+              onClick={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                onClick(file);
+              }}
               className={cn(
                 "font-medium flex items-center gap-2 text-[11px] border-r border-r-border border-t-2 px-3 py-1 bg-brand-filesdeck border-t-brand-filesdeck text-brand-dim",
                 file.id === activeFile.id &&
@@ -29,7 +34,15 @@ export default function FileTabs() {
                 className="w-4 h-4"
               />
               {file.name}
-              <Button variant="ghost" className="p-1! h-fit rounded-sm">
+              <Button
+                variant="ghost"
+                className="p-1! h-fit rounded-sm"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                  closeTab(file.id);
+                }}
+              >
                 <X size={6} className="size-2.5" />
               </Button>
             </div>

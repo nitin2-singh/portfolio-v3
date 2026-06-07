@@ -63,7 +63,7 @@ export default function ActionBar() {
           shortcut: "Ctrl+`",
           seperator: true,
         },
-        { id: 3.4, name: "Enter Full Screen", shortcut: "F11" },
+        { id: 3.4, name: "Enter Full Screen", shortcut: "Ctrl+F" },
         { id: 3.5, name: "Zoom In", shortcut: "Ctrl++" },
         { id: 3.6, name: "Zoom Out", shortcut: "Ctrl+-" },
         { id: 3.7, name: "Reset Zoom" },

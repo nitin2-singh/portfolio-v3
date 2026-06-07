@@ -3,7 +3,9 @@ import { RefreshCcw, TriangleAlert } from "lucide-react";
 import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
 import { ThemeDropdown } from "../theme-dropdown/theme-dropdown";
+import { useFileStore } from "@/store/files.store";
 export default function Footer() {
+  const { activeFile } = useFileStore();
   const [time, setTime] = useState("");
 
   useEffect(() => {
@@ -51,7 +53,7 @@ export default function Footer() {
           variant="ghost"
           className="text-xs h-fit rounded-sm hover:bg-stone-100/20 w-fit px-1 py-0.5 max-sm:hidden"
         >
-          Typescript React
+          {activeFile?.tags}
         </Button>
         <ThemeDropdown />
         <Button
