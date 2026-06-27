@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { BsGithub, BsLinkedin } from "react-icons/bs";
 import { cn } from "@/lib/utils";
 import { motion, Variants } from "framer-motion";
+import { FILES } from "../common/files";
+import { useFileStore } from "@/store/files.store";
 
 const ROLES = ["Full Stack Engineer", "Backend Engineer", "@ Slidecoach"];
 
@@ -102,6 +104,7 @@ function TypingEffect({ words }: { words: string[] }) {
 }
 
 export default function Home() {
+  const { onClick } = useFileStore();
   return (
     <motion.main
       initial={{ opacity: 0 }}
@@ -226,6 +229,10 @@ export default function Home() {
           className="flex flex-wrap gap-3 mt-6"
         >
           <Button
+            onClick={() => {
+              const currentFile = FILES[2];
+              onClick(currentFile);
+            }}
             className="font-mono text-sm font-semibold gap-2 rounded-xs text-white p-5 bg-brand-primary hover:bg-brand-primary/80!"
             asChild
           >
@@ -239,6 +246,10 @@ export default function Home() {
               borderColor: "#3a3a3a",
               backgroundColor: "transparent",
               color: "#d4d4d4",
+            }}
+            onClick={() => {
+              const currentFile = FILES[1];
+              onClick(currentFile);
             }}
             asChild
           >

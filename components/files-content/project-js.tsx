@@ -13,6 +13,7 @@ interface Project {
   description: string;
   techs: string[];
   link?: string;
+  website?: string;
   line: string;
   text: string;
 }
@@ -42,6 +43,7 @@ const projects: Project[] = [
       "Docker",
     ],
     link: "https://github.com/nitin2-singh/next-chat-frontend",
+    website: "https://next-chat-frontend-ten.vercel.app",
     line: "bg-cyan-500",
     text: "text-cyan-500",
   },
@@ -59,7 +61,8 @@ const projects: Project[] = [
       "JWT",
       "Google Auth",
     ],
-    link: "#",
+    link: "https://github.com/nitin2-singh/next-tweet-frontend",
+    website: "https://next-tweet-frontend.vercel.app/",
     line: "bg-purple-500",
     text: "text-purple-500",
   },
@@ -78,8 +81,29 @@ const projects: Project[] = [
       "Docker",
     ],
     link: "https://github.com/nitin2-singh/leplit-frontend",
+    website: "https://leplit-frontend.vercel.app",
     line: "bg-orange-500",
     text: "text-orange-500",
+  },
+  {
+    icon: "♟️",
+    category: "REAL-TIME · MULTIPLAYER · FULL STACK",
+    title: "OG Chess",
+    description:
+      "Real-time multiplayer chess platform built with Next.js, NestJS, PostgreSQL, Socket.IO, and chess.js featuring secure authentication, matchmaking, live gameplay, optimistic updates, and leaderboards.",
+    techs: [
+      "Next.js",
+      "NestJS",
+      "Socket.IO",
+      "PostgreSQL",
+      "TypeORM",
+      "chess.js",
+      "TypeScript",
+    ],
+    link: "https://github.com/nitin2-singh/og-chess-frontend",
+    website: "https://og-chess-frontend.vercel.app/",
+    line: "bg-emerald-500",
+    text: "text-emerald-500",
   },
 ];
 
@@ -197,34 +221,60 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         </motion.div>
 
         {/* Category */}
-        <div className="flex items-center justify-between gap-2 max-sm:flex-col max-sm:items-start">
+        <div className="flex w-full items-start justify-between gap-2 max-sm:flex-col max-sm:items-start">
           <p className="font-jetbrains text-[10px] tracking-[0.2em] text-[#888] font-bold">
             {project.category}
           </p>
 
-          {project.link && (
-            <motion.a
-              href={project.link}
-              whileTap={{
-                scale: 0.96,
-              }}
-              className="
-                text-[11px]
-                text-[#777]
-                border
-                border-white/10
-                rounded-sm
-                px-3
-                py-1
-                hover:text-white
-                hover:border-white/20
-                transition-all
-                duration-300
-              "
-            >
-              GitHub ↗
-            </motion.a>
-          )}
+          <div className="flex flex-wrap justify-end gap-2 max-sm:w-full max-sm:justify-start">
+            {project.website && (
+              <motion.a
+                href={project.website}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileTap={{ scale: 0.96 }}
+                className="
+          text-[11px]
+          text-[#777]
+          border
+          border-white/10
+          rounded-sm
+          px-3
+          py-1
+          hover:text-white
+          hover:border-white/20
+          transition-all
+          duration-300
+        "
+              >
+                Website ↗
+              </motion.a>
+            )}
+
+            {project.link && (
+              <motion.a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileTap={{ scale: 0.96 }}
+                className="
+          text-[11px]
+          text-[#777]
+          border
+          border-white/10
+          rounded-sm
+          px-3
+          py-1
+          hover:text-white
+          hover:border-white/20
+          transition-all
+          duration-300
+        "
+              >
+                GitHub ↗
+              </motion.a>
+            )}
+          </div>
         </div>
 
         {/* Title */}
