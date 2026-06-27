@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { useFileStore } from "@/store/files.store";
 import HomeFile from "../files-content/home";
 import FileTabs from "./file-tabs";
@@ -19,6 +20,13 @@ export default function MainScreen() {
   const { setOpenDeck, openDeck } = useLeftDeckStore();
   const { activeFile } = useFileStore();
   const { openTerminal } = useTerminalStore();
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.scrollTop = 0;
+    }
+  }, [activeFile?.id]);
 
   return (
     <div className="flex w-full h-full flex-1 overflow-hidden">
@@ -38,7 +46,10 @@ export default function MainScreen() {
 
       <div className="flex flex-col flex-1 min-w-0 h-full">
         <FileTabs />
-        <div className="flex-1 overflow-auto bg-brand-mainscreenaccent">
+        <div
+          ref={containerRef}
+          className="flex-1 overflow-auto bg-brand-mainscreenaccent"
+        >
           {activeFile.id === 1 && <HomeFile />}
           {activeFile.id === 2 && <AboutSection />}
           {activeFile.id === 3 && <ProjectsSection />}
